@@ -1,7 +1,7 @@
 """
 alternative_finder.py
 ======================
-תוסף ל-Zolink: איתור "מוצרים דומים" זולים יותר ממוכרים אחרים באותה קטגוריה.
+תוסף ל-Snagly: איתור "מוצרים דומים" זולים יותר ממוכרים אחרים באותה קטגוריה.
 
 עקרון העבודה:
 1. מחלצים מילות מפתח מכותרת המוצר המקורי (לא כל הכותרת - היא בד"כ עמוסה במילות פילר/SEO)
@@ -41,7 +41,7 @@ import imagehash
 from aliexpress_client import AliExpressClient, AliExpressAPIError
 # from bot import is_verified_for_israel_shipping  # אם קיימת פונקציה כזו כבר - נחבר בשלב הבא
 
-logger = logging.getLogger("zolink.alternative_finder")
+logger = logging.getLogger("snagly.alternative_finder")
 
 # מילות פילר נפוצות בכותרות AliExpress שכדאי לזרוק לפני חיפוש
 STOPWORDS = {
@@ -370,7 +370,7 @@ def format_stats_summary(stats: dict) -> str:
 
 
 def format_alternatives_message(original: ProductRef, matches: list[AlternativeMatch]) -> str:
-    """מנסח את הודעת התשובה למשתמש, בהתאם לעקרון השקיפות של Zolink."""
+    """מנסח את הודעת התשובה למשתמש, בהתאם לעקרון השקיפות של Snagly."""
     if not matches:
         return (
             "🔍 No alternative met our bar this time - we only show items that "
