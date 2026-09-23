@@ -1,6 +1,6 @@
-# Zolink US Bot
+# Snagly Bot
 
-Telegram bot for US shoppers: send an AliExpress product link, get back
+Snagly - a Telegram bot for US shoppers (@SnaglyDealsBot): send an AliExpress product link, get back
 product details in USD, an affiliate link, and a matching discount code
 (when one is configured).
 
@@ -19,7 +19,7 @@ python bot.py
 ```
 
 ## Deploy to Railway
-Deploy as a **separate** service/repo from the Israeli bot, with its own
+Deploy as a **separate** service/repo from the Israeli bot (repo: staketogrow-code/Snagly), with its own
 Variables: `TELEGRAM_BOT_TOKEN`, `ALIEXPRESS_APP_KEY`,
 `ALIEXPRESS_APP_SECRET`, `ALIEXPRESS_TRACKING_ID` (+ optional `ADMIN_CHAT_ID`,
 `ADMIN_USER_IDS`).
