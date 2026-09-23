@@ -1,5 +1,5 @@
 """
-coupons.py  (Zolink US)
+coupons.py  (Snagly)
 
 AliExpress tiered discount codes valid for US-shipping orders.
 Update this file manually whenever the codes or validity dates change
