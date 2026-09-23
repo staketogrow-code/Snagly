@@ -1,5 +1,5 @@
 """
-bot.py - Zolink US Telegram bot
+bot.py - Snagly Telegram bot (US)
 
 Users send AliExpress product link(s) -> the bot replies with product
 details (USD), an affiliate tracking link, and any matching discount code.
@@ -48,10 +48,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
-ALIEXPRESS_APP_KEY = os.environ["ALIEXPRESS_APP_KEY"]
-ALIEXPRESS_APP_SECRET = os.environ["ALIEXPRESS_APP_SECRET"]
-ALIEXPRESS_TRACKING_ID = os.environ.get("ALIEXPRESS_TRACKING_ID", "default")
+# .strip() חשוב: רווח/שורה חדשה שנדבקים בטעות בהדבקה ל-Railway גורמים
+# ל-"IncompleteSignature" מאליאקספרס, כי הם נכנסים לחישוב החתימה.
+BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"].strip()
+ALIEXPRESS_APP_KEY = os.environ["ALIEXPRESS_APP_KEY"].strip()
+ALIEXPRESS_APP_SECRET = os.environ["ALIEXPRESS_APP_SECRET"].strip()
+ALIEXPRESS_TRACKING_ID = os.environ.get("ALIEXPRESS_TRACKING_ID", "default").strip()
+
+logger.info(
+    "Loaded credentials - app_key=%s (len %d), secret length=%d, tracking_id=%r",
+    ALIEXPRESS_APP_KEY, len(ALIEXPRESS_APP_KEY), len(ALIEXPRESS_APP_SECRET), ALIEXPRESS_TRACKING_ID,
+)
 
 # אופציונלי: צ'אט/קבוצת מעקב לאדמין (ר' /chatid). אם לא מוגדר - כבוי.
 ADMIN_CHAT_ID = os.environ.get("ADMIN_CHAT_ID")
@@ -473,7 +480,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 )
 
     await update.message.reply_text(
-        "Hey! 👋 I'm Zolink.\n\n"
+        "Hey! 👋 I'm Snagly.\n\n"
         "Send me a link (or a few) to any AliExpress product and I'll send back "
         "the price, rating, a direct link - and a matching discount code when "
         "there is one 🎁\n\n"
@@ -483,7 +490,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "button) to empty it.\n\n"
         "Just paste a link to get started 🔗\n\n"
         "Disclosure: the links I send are affiliate links - if you buy through "
-        "them, Zolink may earn a small commission at no extra cost to you."
+        "them, Snagly may earn a small commission at no extra cost to you."
     )
 
 
@@ -929,7 +936,7 @@ def main() -> None:
     application.add_handler(CallbackQueryHandler(find_alternative_callback, pattern=f"^{FIND_ALT_CALLBACK_PREFIX}"))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    logger.info("Zolink US bot starting...")
+    logger.info("Snagly bot starting...")
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
